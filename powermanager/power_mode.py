@@ -1,20 +1,17 @@
 from smbus import SMBus 
-from logging import StreamHandler, getLogger
+from logging import getLogger
+from logging.config import fileConfig 
 
 SMBUS_NUMBER = 1
 LINE_POWER = 1
 BATTERY_POWER = 2
 
+fileConfig('logging_config.ini')
+log = getLogger()
+
 i2c = SMBus(SMBUS_NUMBER)
 
 
-handler = StreamHandler()
-#handler.setFormatter(logging.BASIC_FORMAT)
-root = getLogger()
-root.setLevel("DEBUG")
-root.addHandler(handler)
-
-log = getLogger("test1")
 
 def getPowerMode():
    rawdata = i2c.read_byte_data(0x69, 0x00)
