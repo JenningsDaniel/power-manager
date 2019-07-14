@@ -1,15 +1,19 @@
+from ConfigParser import SafeConfigParser
 from smbus import SMBus 
 from logging import getLogger
 from logging.config import fileConfig 
 
-SMBUS_NUMBER = 1
 LINE_POWER = 1
 BATTERY_POWER = 2
 
-fileConfig('logging_config.ini')
+parser = SafeConfigParser()
+parser.read('config.ini')
+
+fileConfig(parser.get('DEFAULT', 'LoggingConfigFile'))
+
 log = getLogger()
 
-i2c = SMBus(SMBUS_NUMBER)
+i2c = SMBus(parser.getint('DEFAULT', 'SMBusNumber'))
 
 
 
