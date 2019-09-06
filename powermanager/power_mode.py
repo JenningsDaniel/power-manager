@@ -15,8 +15,6 @@ log = getLogger()
 
 i2c = SMBus(parser.getint('DEFAULT', 'SMBusNumber'))
 
-
-
 def getPowerMode():
    rawdata = i2c.read_byte_data(0x69, 0x00)
    data = rawdata & ~(1 << 7)
